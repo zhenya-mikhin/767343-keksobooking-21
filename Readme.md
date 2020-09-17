@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Михин](https://up.htmlacademy.ru/javascript/21/user/767343).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Пальчук](https://htmlacademy.ru/profile/bulletok).
 
 ---
 
