@@ -84,3 +84,55 @@ const templateObj = {
     }
   }
 };
+
+const getRandomNumber = function (min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getRandomArray = function (arr) {
+  const copyArray = arr.slice(0);
+  const length = getRandomNumber(0, arr.length);
+  copyArray.slice(0, length);
+  return copyArray;
+};
+
+const createObj = function (index) {
+  const randomLocationX = getRandomNumber(templateObj.location.x.min, templateObj.location.x.max);
+  const randomLocationY = getRandomNumber(templateObj.location.y.min, templateObj.location.y.max);
+  const obj = {
+    author: {
+      avatar: 'img/avatars/user0' + (index + 1) + '.png'
+    },
+    offer: {
+      title: templateObj.offer.titles[index],
+      address: randomLocationX + ',' + randomLocationY,
+      price: getRandomNumber(templateObj.offer.price.min, templateObj.offer.price.max),
+      type: templateObj.offer.types[getRandomNumber(0, templateObj.offer.types.length - 1)],
+      rooms: getRandomNumber(templateObj.offer.rooms.min, templateObj.offer.rooms.max),
+      guests: getRandomNumber(templateObj.offer.guests.min, templateObj.offer.guests.max),
+      checkin: templateObj.offer.checkins[getRandomNumber(0, templateObj.offer.checkins.length - 1)],
+      checkout: templateObj.offer.checkouts[getRandomNumber(0, templateObj.offer.checkouts.length - 1)],
+      features: getRandomArray(templateObj.offer.features),
+      description: '',
+      photos: getRandomArray(templateObj.offer.photos)
+    },
+    location: {
+      x: randomLocationX,
+      y: randomLocationY
+    }
+  };
+  return obj;
+};
+
+const renderObjects = function (amount) {
+  for (let i = 0; i < amount; i++) {
+    arrayObj[i] = createObj(i);
+  }
+  return arrayObj;
+};
+renderObjects(amountAds);
+
+// У блока .map убераю класс .map--faded
+map.classList.remove('map--faded');
