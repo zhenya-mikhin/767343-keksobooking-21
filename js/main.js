@@ -107,7 +107,7 @@ const createObj = function (index) {
     },
     offer: {
       title: templateObj.offer.titles[index],
-      address: randomLocationX + ',' + randomLocationY,
+      address: randomLocationX + ', ' + randomLocationY,
       price: getRandomNumber(templateObj.offer.price.min, templateObj.offer.price.max),
       type: templateObj.offer.types[getRandomNumber(0, templateObj.offer.types.length - 1)],
       rooms: getRandomNumber(templateObj.offer.rooms.min, templateObj.offer.rooms.max),
@@ -133,6 +133,26 @@ const renderObjects = function (amount) {
   return arrayObj;
 };
 renderObjects(amountAds);
+console.log(arrayObj);
 
 // У блока .map убераю класс .map--faded
 map.classList.remove('map--faded');
+
+const createPin = function (dataPin) {
+  const currentPin = mapPin.cloneNode(true);
+  const currentPinImg = currentPin.querySelector('img');
+  currentPinImg.src = dataPin['author']['avatar'];
+  currentPinImg.alt = dataPin['offer']['title'];
+  currentPin.style.left = dataPin['location']['x'] + 'px';
+  currentPin.style.top = dataPin['location']['y'] + 'px';
+  return currentPin;
+};
+
+const renderPins = function (dataPins) {
+  const mapPinsFragment = document.createDocumentFragment();
+  for (let i = 0; i < dataPins.length; i++) {
+    mapPinsFragment.appendChild(createPin(dataPins[i]));
+  }
+  return mapPins.appendChild(mapPinsFragment);
+};
+renderPins(arrayObj);
