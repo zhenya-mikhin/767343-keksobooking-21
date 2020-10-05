@@ -3,85 +3,26 @@
 const map = document.querySelector('.map');
 const mapPin = document.querySelector('#pin').content.querySelector('.map__pin');
 const mapPins = document.querySelector('.map__pins');
-const arrayObj = [];
-const amountAds = 8;
 
-const templateObj = {
-  author: {
-    avatars: []
+const amountAds = 8;
+const TITLES = ['', '', '', '', '', '', '', ''];
+const PRICE = {min: 1000, max: 100000};
+const TYPES = ['palace', 'flat', 'house', 'bungalow'];
+const ROOMS = {min: 1, max: 100};
+const GUESTS = {min: 0, max: 4};
+const CHECKINS = ['12:00', '13:00', '14:00'];
+const CHECKOUTS = ['12:00', '13:00', '14:00'];
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const DESCRIPTIONS = ['', '', '', '', '', '', '', ''];
+const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+const LOCATION = {
+  x: {
+    min: 130,
+    max: 1200
   },
-  offer: {
-    titles: [
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      ''
-    ],
-    price: {
-      min: 1000,
-      max: 100000
-    },
-    types: [
-      'palace',
-      'flat',
-      'house',
-      'bungalow'
-    ],
-    rooms: {
-      min: 1,
-      max: 100
-    },
-    guests: {
-      min: 0,
-      max: 4
-    },
-    checkins: [
-      '12:00',
-      '13:00',
-      '14:00'
-    ],
-    checkouts: [
-      '12:00',
-      '13:00',
-      '14:00'
-    ],
-    features: [
-      'wifi',
-      'dishwasher',
-      'parking',
-      'washer',
-      'elevator',
-      'conditioner'
-    ],
-    description: [
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      ''
-    ],
-    photos: [
-      'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-      'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-      'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
-    ]
-  },
-  location: {
-    x: {
-      min: 130,
-      max: 1200
-    },
-    y: {
-      min: 130,
-      max: 630
-    }
+  y: {
+    min: 130,
+    max: 630
   }
 };
 
@@ -92,48 +33,43 @@ const getRandomNumber = function (min, max) {
 };
 
 const getRandomArray = function (arr) {
-  const copyArray = arr.slice(0);
-  const length = getRandomNumber(0, arr.length);
-  copyArray.slice(0, length);
+  const copyArray = arr.slice(0, getRandomNumber(0, arr.length));
   return copyArray;
 };
 
-const createObj = function (index) {
-  const randomLocationX = getRandomNumber(templateObj.location.x.min, templateObj.location.x.max);
-  const randomLocationY = getRandomNumber(templateObj.location.y.min, templateObj.location.y.max);
+const createAdsObj = function (index) {
   const obj = {
     author: {
       avatar: 'img/avatars/user0' + (index + 1) + '.png'
     },
     offer: {
-      title: templateObj.offer.titles[index],
-      address: randomLocationX + ', ' + randomLocationY,
-      price: getRandomNumber(templateObj.offer.price.min, templateObj.offer.price.max),
-      type: templateObj.offer.types[getRandomNumber(0, templateObj.offer.types.length - 1)],
-      rooms: getRandomNumber(templateObj.offer.rooms.min, templateObj.offer.rooms.max),
-      guests: getRandomNumber(templateObj.offer.guests.min, templateObj.offer.guests.max),
-      checkin: templateObj.offer.checkins[getRandomNumber(0, templateObj.offer.checkins.length - 1)],
-      checkout: templateObj.offer.checkouts[getRandomNumber(0, templateObj.offer.checkouts.length - 1)],
-      features: getRandomArray(templateObj.offer.features),
+      title: TITLES[index],
+      address: getRandomNumber(LOCATION.x.min, LOCATION.x.max) + ', ' + getRandomNumber(LOCATION.y.min, LOCATION.y.max),
+      price: getRandomNumber(PRICE.min, PRICE.max),
+      type: TYPES[getRandomNumber(0, TYPES.length - 1)],
+      rooms: getRandomNumber(ROOMS.min, ROOMS.max),
+      guests: getRandomNumber(GUESTS.min, GUESTS.max),
+      checkin: CHECKINS[getRandomNumber(0, CHECKINS.length - 1)],
+      checkout: CHECKOUTS[getRandomNumber(0, CHECKOUTS.length - 1)],
+      features: getRandomArray(FEATURES),
       description: '',
-      photos: getRandomArray(templateObj.offer.photos)
+      photos: getRandomArray(PHOTOS)
     },
     location: {
-      x: randomLocationX,
-      y: randomLocationY
+      x: getRandomNumber(LOCATION.x.min, LOCATION.x.max),
+      y: getRandomNumber(LOCATION.y.min, LOCATION.y.max)
     }
   };
   return obj;
 };
 
-const renderObjects = function (amount) {
+const createAdsObjects = function (amount) {
+  const adsArray = [];
   for (let i = 0; i < amount; i++) {
-    arrayObj[i] = createObj(i);
+    adsArray[i] = createAdsObj(i);
   }
-  return arrayObj;
+  return adsArray;
 };
-renderObjects(amountAds);
-console.log(arrayObj);
 
 // У блока .map убераю класс .map--faded
 map.classList.remove('map--faded');
@@ -153,6 +89,6 @@ const renderPins = function (dataPins) {
   for (let i = 0; i < dataPins.length; i++) {
     mapPinsFragment.appendChild(createPin(dataPins[i]));
   }
-  return mapPins.appendChild(mapPinsFragment);
+  mapPins.appendChild(mapPinsFragment);
 };
-renderPins(arrayObj);
+renderPins(createAdsObjects(amountAds));
