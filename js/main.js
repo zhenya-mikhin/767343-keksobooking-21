@@ -2,7 +2,11 @@
 
 const map = document.querySelector('.map');
 const mapPin = document.querySelector('#pin').content.querySelector('.map__pin');
-const mapPins = document.querySelector('.map__pins');
+const mapPins = map.querySelector('.map__pins');
+const mapPinMain = map.querySelector('.map__pin--main');
+const adForm = document.querySelector('.ad-form');
+const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
+const adFormHeader = adForm.querySelector('.ad-form-header');
 
 const amountAds = 8;
 const TITLES = ['', '', '', '', '', '', '', ''];
@@ -13,7 +17,6 @@ const GUESTS = {min: 0, max: 4};
 const CHECKINS = ['12:00', '13:00', '14:00'];
 const CHECKOUTS = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const DESCRIPTIONS = ['', '', '', '', '', '', '', ''];
 const PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const LOCATION = {
   x: {
@@ -25,6 +28,11 @@ const LOCATION = {
     max: 630
   }
 };
+
+adFormHeader.disabled = true;
+for (let i = 0; i < adFormFieldsets.length; i++) {
+  adFormFieldsets[i].disabled = true;
+}
 
 const getRandomNumber = function (min, max) {
   min = Math.ceil(min);
@@ -71,9 +79,6 @@ const createAdsObjects = function (amount) {
   return adsArray;
 };
 
-// У блока .map убераю класс .map--faded
-map.classList.remove('map--faded');
-
 const createPin = function (dataPin) {
   const currentPin = mapPin.cloneNode(true);
   const currentPinImg = currentPin.querySelector('img');
@@ -91,4 +96,26 @@ const renderPins = function (dataPins) {
   }
   mapPins.appendChild(mapPinsFragment);
 };
-renderPins(createAdsObjects(amountAds));
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    adFormHeader.disabled = false;
+    for (let i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = false;
+    }
+    renderPins(createAdsObjects(amountAds));
+  }
+});
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    adFormHeader.disabled = false;
+    for (let i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = false;
+    }
+    renderPins(createAdsObjects(amountAds));
+  }
+});
