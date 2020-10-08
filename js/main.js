@@ -7,6 +7,9 @@ const mapPinMain = map.querySelector('.map__pin--main');
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
 const adFormHeader = adForm.querySelector('.ad-form-header');
+const addressInput = adForm.querySelector('#address');
+const ARROW_HEIGHT = 18;
+addressInput.value = Math.round((mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2)) + ', ' + Math.round((mapPinMain.offsetTop + mapPinMain.offsetHeight / 2));
 
 const amountAds = 8;
 const TITLES = ['', '', '', '', '', '', '', ''];
@@ -97,25 +100,30 @@ const renderPins = function (dataPins) {
   mapPins.appendChild(mapPinsFragment);
 };
 
+const activationForm = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  adFormHeader.disabled = false;
+  for (let i = 0; i < adFormFieldsets.length; i++) {
+    adFormFieldsets[i].disabled = false;
+  }
+};
+
+const adAddress = function () {
+  addressInput.value = Math.round((mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2)) + ', ' + Math.round((mapPinMain.offsetTop + mapPinMain.offsetHeight + ARROW_HEIGHT));
+};
+
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    adFormHeader.disabled = false;
-    for (let i = 0; i < adFormFieldsets.length; i++) {
-      adFormFieldsets[i].disabled = false;
-    }
-    renderPins(createAdsObjects(amountAds));
+    activationForm();
+    adAddress();
   }
+  renderPins(createAdsObjects(amountAds));
 });
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    adFormHeader.disabled = false;
-    for (let i = 0; i < adFormFieldsets.length; i++) {
-      adFormFieldsets[i].disabled = false;
-    }
-    renderPins(createAdsObjects(amountAds));
+    activationForm();
+    adAddress();
   }
+  renderPins(createAdsObjects(amountAds));
 });
