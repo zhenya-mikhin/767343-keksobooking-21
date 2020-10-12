@@ -6,6 +6,8 @@ const mapPins = map.querySelector('.map__pins');
 const mapPinMain = map.querySelector('.map__pin--main');
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
+const roomNumber = adForm.querySelector('#room_number');
+const capacity = adForm.querySelector('#capacity');
 const adFormHeader = adForm.querySelector('.ad-form-header');
 const addressInput = adForm.querySelector('#address');
 const ARROW_HEIGHT = 18;
@@ -126,4 +128,16 @@ mapPinMain.addEventListener('keydown', function (evt) {
     adAddress();
   }
   renderPins(createAdsObjects(amountAds));
+});
+
+roomNumber.addEventListener('change', function () {
+  let currentValue;
+  capacity.value = (roomNumber.value === '100') ? '0' : roomNumber.value;
+  currentValue = capacity.value;
+
+  for (let i = 0; i < capacity.options.length; i++) {
+    capacity.options[i].disabled = (currentValue === '0') ?
+      (capacity.options[i].value !== '0') :
+      (capacity.options[i].value > currentValue || capacity.options[i].value === '0');
+  }
 });
