@@ -3,7 +3,6 @@
 (function () {
 
   const addressInput = document.querySelector('#address');
-  const amountAds = 8;
   const doListenMapPinMain = function (evt) {
     if (evt.button === 0 || evt.key === 'Enter') {
       window.form.activationForm();
