@@ -18,23 +18,25 @@
         (capacity.options[i].value > currentValue || capacity.options[i].value === '0');
     }
   };
+  const deActivationForm = function () {
+    adFormHeader.disabled = true;
+    for (let i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = true;
+    }
+  };
+  const activationForm = function () {
+    window.data.map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    adFormHeader.disabled = false;
+    for (let i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = false;
+    }
+  };
 
   window.form = {
-    deActivationForm: function () {
-      adFormHeader.disabled = true;
-      for (let i = 0; i < adFormFieldsets.length; i++) {
-        adFormFieldsets[i].disabled = true;
-      }
-    },
+    deActivationForm: deActivationForm,
 
-    activationForm: function () {
-      window.data.map.classList.remove('map--faded');
-      adForm.classList.remove('ad-form--disabled');
-      adFormHeader.disabled = false;
-      for (let i = 0; i < adFormFieldsets.length; i++) {
-        adFormFieldsets[i].disabled = false;
-      }
-    }
+    activationForm: activationForm
   };
 
   roomNumber.addEventListener('change', doListenRoomNumber);

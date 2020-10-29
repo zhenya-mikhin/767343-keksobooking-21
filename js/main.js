@@ -3,12 +3,16 @@
 (function () {
 
   const addressInput = document.querySelector('#address');
+  const doRenderPinsAndCard = function () {
+    window.load(window.map.renderPins, onerror);
+    window.load(window.card, onerror);
+  };
   const doListenMapPinMain = function (evt) {
     if (evt.button === 0 || evt.key === 'Enter') {
       window.form.activationForm();
       adAddress();
+      doRenderPinsAndCard();
     }
-    window.load(window.map.renderPins, onerror);
   };
 
   addressInput.value = Math.round((window.map.mapPinMain.offsetLeft + window.map.mapPinMain.offsetWidth / 2)) + ', ' + Math.round((window.map.mapPinMain.offsetTop + window.map.mapPinMain.offsetHeight / 2));
