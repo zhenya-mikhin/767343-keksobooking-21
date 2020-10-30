@@ -68,8 +68,10 @@
   const renderCard = function (dataCard) {
     const mapCardFragment = document.createDocumentFragment();
     mapCardFragment.appendChild(createCard(dataCard));
-    window.data.map.insertBefore(createCard, mapFiltersContainer);
+    window.data.map.insertBefore(mapCardFragment, mapFiltersContainer);
   };
 
-  window.card = renderCard;
+  window.card = {
+    renderCard: renderCard
+  };
 })();

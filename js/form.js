@@ -7,6 +7,7 @@
   const roomNumber = adForm.querySelector('#room_number');
   const capacity = adForm.querySelector('#capacity');
   const adFormHeader = adForm.querySelector('.ad-form-header');
+  const isActivationForm = false;
   const doListenRoomNumber = function () {
     let currentValue;
     capacity.value = (roomNumber.value === '100') ? '0' : roomNumber.value;
@@ -25,6 +26,7 @@
     }
   };
   const activationForm = function () {
+    window.form.isActivationForm = true;
     window.data.map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     adFormHeader.disabled = false;
@@ -35,7 +37,7 @@
 
   window.form = {
     deActivationForm: deActivationForm,
-
+    isActivationForm: isActivationForm,
     activationForm: activationForm
   };
 

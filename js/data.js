@@ -9,6 +9,16 @@
 
   window.data = {
     ARROW_HEIGHT: 18,
+    LIMITS: {
+      X: {
+        MIN: 0,
+        MAX: 1200
+      },
+      Y: {
+        MIN: 130,
+        MAX: 630
+      }
+    },
 
     map: document.querySelector('.map'),
 
