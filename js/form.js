@@ -4,6 +4,7 @@
 
   const adForm = document.querySelector('.ad-form');
   const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
+  // const adFormReset = adForm.querySelectorAll('.ad-form__reset');
   const roomNumber = adForm.querySelector('#room_number');
   const capacity = adForm.querySelector('#capacity');
   const adFormHeader = adForm.querySelector('.ad-form-header');
@@ -35,6 +36,26 @@
     }
   };
 
+  const successHandler = function () {
+    window.util.getSuccessMessage();
+    window.data.map.classList.add('map--faded');
+  };
+
+  const errorHandler = function () {
+    window.util.getErrorMessage();
+  };
+
+  const submitHandler = function (evt) {
+    window.load.upLoad(new FormData(adForm), successHandler, errorHandler);
+    evt.preventDefault();
+  };
+
+  /*
+  adFormReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+  });
+  */
+
   window.form = {
     deActivationForm: deActivationForm,
     isActivationForm: isActivationForm,
@@ -42,5 +63,7 @@
   };
 
   roomNumber.addEventListener('change', doListenRoomNumber);
+
+  adForm.addEventListener('submit', submitHandler);
 
 })();

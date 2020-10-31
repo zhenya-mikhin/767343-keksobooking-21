@@ -6,7 +6,7 @@
   const renderPins = function (dataPins) {
     const mapPinsFragment = document.createDocumentFragment();
     for (let i = 0; i < dataPins.length; i++) {
-      mapPinsFragment.appendChild(window.pin.createPin(dataPins[i]));
+      mapPinsFragment.appendChild(window.pin(dataPins[i]));
     }
     window.map.mapPins.appendChild(mapPinsFragment);
   };

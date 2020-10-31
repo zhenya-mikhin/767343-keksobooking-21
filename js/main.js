@@ -4,7 +4,7 @@
 
   const addressInput = document.querySelector('#address');
   const doRenderPinsAndCard = function () {
-    window.load(window.map.renderPins, onerror);
+    window.load.onLoad(window.map.renderPins, onerror);
     // window.load(window.card, onerror);
   };
   const adAddress = function () {
@@ -23,20 +23,7 @@
 
   window.form.deActivationForm();
 
-  window.map.mapPinMain.addEventListener('mousedown', function (evt) {
-    if (window.form.isActivationForm) {
-      window.map.mapPinMain.addEventListener('mousemove', window.pin.onMouseMove);
-    } else {
-      doListenMapPinMain(evt);
-    }
-  });
+  window.map.mapPinMain.addEventListener('mousedown', doListenMapPinMain);
   window.map.mapPinMain.addEventListener('keydown', doListenMapPinMain);
-
-  const onMouseUp = function (upEvt) {
-    upEvt.preventDefault();
-    document.removeEventListener('mousemove', window.pin.onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  };
-  document.addEventListener('mouseup', onMouseUp);
 
 })();
