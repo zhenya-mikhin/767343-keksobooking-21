@@ -21,15 +21,27 @@
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
+
   const getRandomArray = function (arr) {
     const copyArray = arr.slice(0, window.util.getRandomNumber(0, arr.length));
     return copyArray;
+  };
+
+  const getValidCoords = function (coords, min, max) {
+    coords = parseInt(coords, 10);
+
+    return coords > max
+      ? max
+      : coords < min
+        ? min
+        : coords;
   };
 
   window.util = {
     getRandomNumber: getRandomNumber,
     getRandomArray: getRandomArray,
     getErrorMessage: getErrorMessage,
-    getSuccessMessage: getSuccessMessage
+    getSuccessMessage: getSuccessMessage,
+    getValidCoords: getValidCoords
   };
 })();
