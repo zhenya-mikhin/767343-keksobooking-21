@@ -5,11 +5,11 @@
     GET: 'https://21.javascript.pages.academy/keksobooking/data',
     POST: 'https://21.javascript.pages.academy/keksobooking'
   };
-  const createXhr = function (metod, url, onSuccess, onError) {
+  let createXhr = function (metod, url, onSuccess, onError) {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      const error = '';
+      let error = '';
       switch (xhr.status) {
         case 200:
           onSuccess(xhr.response);
@@ -40,18 +40,18 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = 20000;
 
     xhr.open(metod, url);
 
     return xhr;
   };
 
-  const onLoad = function (onSuccess, onError) {
+  let onLoad = function (onSuccess, onError) {
     createXhr('GET', URL.GET, onSuccess, onError).send();
   };
 
-  const upLoad = function (data, onSuccess, onError) {
+  let upLoad = function (data, onSuccess, onError) {
     createXhr('POST', URL.POST, onSuccess, onError).send(data);
   };
 

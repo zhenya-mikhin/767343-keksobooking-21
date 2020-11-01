@@ -3,16 +3,17 @@
 (function () {
   const error = document.querySelector('#error').content.querySelector('.error');
   const success = document.querySelector('#success').content.querySelector('.success');
+  const main = document.querySelector('main');
 
   const getErrorMessage = function (message) {
     const getError = error.cloneNode(true);
     const getMessage = getError.querySelector('p');
     getMessage.textContent = message;
-    document.main.insertAdjacentElement('afterbegin', getError);
+    main.insertAdjacentElement('afterbegin', getError);
   };
   const getSuccessMessage = function () {
     const getSuccess = success.cloneNode(true);
-    document.insertAdjacentElement('afterbegin', getSuccess);
+    document.body.insertAdjacentElement('afterbegin', getSuccess);
   };
 
   const getRandomNumber = function (min, max) {
