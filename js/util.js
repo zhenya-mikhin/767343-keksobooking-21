@@ -27,14 +27,14 @@
     return copyArray;
   };
 
-  const getValidCoords = function (coords, min, max) {
+  let getValidCoords = function (coords, min, max) {
     coords = parseInt(coords, 10);
-
-    return coords > max
-      ? max
-      : coords < min
-        ? min
-        : coords;
+    if (coords > max) {
+      return max;
+    } else if (coords < min) {
+      return min;
+    }
+    return coords;
   };
 
   window.util = {

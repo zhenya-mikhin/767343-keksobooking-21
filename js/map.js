@@ -1,14 +1,29 @@
 'use strict';
 
 (function () {
-  const mapPins = window.data.map.querySelector('.map__pins');
-  const mapPinMain = window.data.map.querySelector('.map__pin--main');
+
+  const map = document.querySelector('.map');
+  const mapPins = map.querySelector('.map__pins');
+  const mapPinMain = mapPins.querySelector('.map__pin--main');
+
   const renderPins = function (dataPins) {
     const mapPinsFragment = document.createDocumentFragment();
+
+    const mapPinslistener = function (evt) {
+      evt.preventDefault();
+      if (evt.key === "Enter" || evt.button === 0) {
+        if (evt.target.dataset.id) {
+          window.card.renderCard(dataPins[evt.target.dataset.id]);
+        }
+      }
+    };
+
     for (let i = 0; i < dataPins.length; i++) {
-      mapPinsFragment.appendChild(window.pin(dataPins[i]));
+      mapPinsFragment.appendChild(window.pin(dataPins[i])).dataset.id = i;
+      mapPins.addEventListener('mousedown', mapPinslistener);
+      mapPins.addEventListener('keydown', mapPinslistener);
     }
-    window.map.mapPins.appendChild(mapPinsFragment);
+    mapPins.appendChild(mapPinsFragment);
   };
 
   const getMapPinMainCoords = function () {
