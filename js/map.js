@@ -11,6 +11,7 @@
 
     const mapPinslistener = function (evt) {
       evt.preventDefault();
+      window.card.removeMapCard();
       if ((evt.key === "Enter" || evt.button === 0) && evt.target.dataset.pinId) {
         window.card.renderCard(dataPins[evt.target.dataset.pinId]);
       }
