@@ -71,6 +71,7 @@
       if (evt.target.dataset.class || evt.key === 'Escape') {
         adCard.remove();
       }
+
       adCard.removeEventListener('click', removeCard);
     };
 
@@ -83,7 +84,9 @@
 
   const renderCard = function (dataCard) {
     const mapCardFragment = document.createDocumentFragment();
+
     mapCardFragment.appendChild(createCard(dataCard));
+
     map.insertBefore(mapCardFragment, mapFiltersContainer);
   };
 

@@ -11,15 +11,13 @@
 
     const mapPinslistener = function (evt) {
       evt.preventDefault();
-      if (evt.key === "Enter" || evt.button === 0) {
-        if (evt.target.dataset.id) {
-          window.card.renderCard(dataPins[evt.target.dataset.id]);
-        }
+      if ((evt.key === "Enter" || evt.button === 0) && evt.target.dataset.pinId) {
+        window.card.renderCard(dataPins[evt.target.dataset.pinId]);
       }
     };
 
     for (let i = 0; i < dataPins.length; i++) {
-      mapPinsFragment.appendChild(window.pin(dataPins[i])).dataset.id = i;
+      mapPinsFragment.appendChild(window.pin.createPin(dataPins[i], i));
       mapPins.addEventListener('mousedown', mapPinslistener);
       mapPins.addEventListener('keydown', mapPinslistener);
     }

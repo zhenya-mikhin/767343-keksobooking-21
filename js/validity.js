@@ -2,8 +2,8 @@
 
 (function () {
   const adForm = document.querySelector('.ad-form');
-  const typeInput = adForm.querySelectorAll('#type');
-  const priceInput = adForm.querySelectorAll('#price');
+  const typeInput = adForm.querySelector('#type');
+  const priceInput = adForm.querySelector('#price');
   const roomNumber = adForm.querySelector('#room_number');
   const timeInInput = document.querySelector('#timein');
   const timeOutInput = document.querySelector('#timeout');
