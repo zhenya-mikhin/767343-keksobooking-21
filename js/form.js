@@ -4,39 +4,59 @@
 
   const adForm = document.querySelector('.ad-form');
   const adFormFieldsets = adForm.querySelectorAll('.ad-form__element');
-  const roomNumber = adForm.querySelector('#room_number');
-  const capacity = adForm.querySelector('#capacity');
   const adFormHeader = adForm.querySelector('.ad-form-header');
-  const doListenRoomNumber = function () {
-    let currentValue;
-    capacity.value = (roomNumber.value === '100') ? '0' : roomNumber.value;
-    currentValue = capacity.value;
+  // const adFormReset = adForm.querySelectorAll('.ad-form__reset');
 
-    for (let i = 0; i < capacity.options.length; i++) {
-      capacity.options[i].disabled = (currentValue === '0') ?
-        (capacity.options[i].value !== '0') :
-        (capacity.options[i].value > currentValue || capacity.options[i].value === '0');
+  let isActivationForm = false;
+
+  const deActivationForm = function () {
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+    adFormHeader.disabled = true;
+    for (let i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = true;
     }
   };
+
+  deActivationForm();
+
+  const activationForm = function () {
+    isActivationForm = true;
+    window.data.map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    adFormHeader.disabled = false;
+    for (let i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = false;
+    }
+  };
+
+  const successHandler = function () {
+    window.util.getSuccessMessage();
+    window.data.map.classList.add('map--faded');
+    deActivationForm();
+  };
+
+  const errorHandler = function () {
+    window.util.getErrorMessage();
+  };
+
+  const submitHandler = function (evt) {
+    window.load.upLoad(new FormData(adForm), successHandler, errorHandler);
+    evt.preventDefault();
+  };
+
+  adForm.addEventListener('submit', submitHandler);
+
+  /*
+  adFormReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+  });
+  */
 
   window.form = {
-    deActivationForm: function () {
-      adFormHeader.disabled = true;
-      for (let i = 0; i < adFormFieldsets.length; i++) {
-        adFormFieldsets[i].disabled = true;
-      }
-    },
-
-    activationForm: function () {
-      window.data.map.classList.remove('map--faded');
-      adForm.classList.remove('ad-form--disabled');
-      adFormHeader.disabled = false;
-      for (let i = 0; i < adFormFieldsets.length; i++) {
-        adFormFieldsets[i].disabled = false;
-      }
-    }
+    deActivationForm: deActivationForm,
+    isActivationForm: isActivationForm,
+    activationForm: activationForm
   };
-
-  roomNumber.addEventListener('change', doListenRoomNumber);
 
 })();
