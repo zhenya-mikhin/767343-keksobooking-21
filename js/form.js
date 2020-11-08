@@ -22,7 +22,7 @@
 
   const activationForm = function () {
     isActivationForm = true;
-    window.data.map.classList.remove('map--faded');
+    window.map.map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     adFormHeader.disabled = false;
     for (let i = 0; i < adFormFieldsets.length; i++) {

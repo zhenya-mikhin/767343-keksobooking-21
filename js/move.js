@@ -3,6 +3,7 @@
 (function () {
 
   const mapPinMain = document.querySelector('.map__pin--main');
+  const addressInput = document.querySelector('#address');
 
   mapPinMain.addEventListener('mousedown', function (evt) {
 
@@ -36,6 +37,17 @@
 
       mapPinMain.style.left = window.util.getValidCoords(startPinOffsets.left - shift.x, border.LEFT, border.RIGHT) + 'px';
       mapPinMain.style.top = window.util.getValidCoords(startPinOffsets.top - shift.y, border.TOP, border.BOTTOM) + 'px';
+
+      const mapPinMainCurrentCoords = {
+        x: startPinOffsets.left - shift.x,
+        y: startPinOffsets.top - shift.y
+      };
+
+      const adAddress = function (coords) {
+        addressInput.value = Math.round(coords.x) + ', ' + Math.round(coords.y);
+      };
+
+      adAddress(mapPinMainCurrentCoords);
     };
 
     const onMouseUp = function (upEvt) {

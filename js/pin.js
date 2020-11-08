@@ -17,7 +17,15 @@
     return currentPin;
   };
 
+  const removePin = function () {
+    const Pin = document.querySelector('.map__pin:not(.map__pin--main)');
+    if (Pin) {
+      Pin.remove();
+    }
+  };
+
   window.pin = {
-    createPin
+    createPin: createPin,
+    removePin: removePin
   };
 })();

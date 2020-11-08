@@ -9,7 +9,7 @@
   const renderPins = function (dataPins) {
     const mapPinsFragment = document.createDocumentFragment();
 
-    const mapPinslistener = function (evt) {
+    const mapPinsHeandler = function (evt) {
       evt.preventDefault();
       window.card.removeMapCard();
       if ((evt.key === "Enter" || evt.button === 0) && evt.target.dataset.pinId) {
@@ -19,8 +19,8 @@
 
     for (let i = 0; i < dataPins.length; i++) {
       mapPinsFragment.appendChild(window.pin.createPin(dataPins[i], i));
-      mapPins.addEventListener('mousedown', mapPinslistener);
-      mapPins.addEventListener('keydown', mapPinslistener);
+      mapPins.addEventListener('mousedown', mapPinsHeandler);
+      mapPins.addEventListener('keydown', mapPinsHeandler);
     }
     mapPins.appendChild(mapPinsFragment);
   };
@@ -34,6 +34,7 @@
   };
 
   window.map = {
+    map: map,
     mapPins: mapPins,
     mapPinMain: mapPinMain,
     renderPins: renderPins,
