@@ -1,62 +1,63 @@
 'use strict';
 
-(function () {
-  const URL = {
-    GET: 'https://21.javascript.pages.academy/keksobooking/data',
-    POST: 'https://21.javascript.pages.academy/keksobooking'
-  };
-  let createXhr = function (metod, url, onSuccess, onError) {
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', function () {
-      let error = '';
-      switch (xhr.status) {
-        case 200:
-          onSuccess(xhr.response);
-          break;
-        case 400:
-          error = 'Неверный запрос';
-          break;
-        case 401:
-          error = 'Пользователь не авторизован';
-          break;
-        case 404:
-          error = 'Ничего не найдено';
-          break;
-        default:
-          error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
-      }
 
-      if (error) {
-        onError(error);
-      }
-    });
+const urlLoad = {
+  GET: 'https://21.javascript.pages.academy/keksobooking/data',
+  POST: 'https://21.javascript.pages.academy/keksobooking'
+};
 
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
-    });
+let createXhr = function (metod, url, onSuccess, onError) {
+  const xhr = new XMLHttpRequest();
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    let error = '';
+    switch (xhr.status) {
+      case 200:
+        onSuccess(xhr.response);
+        break;
+      case 400:
+        error = 'Неверный запрос';
+        break;
+      case 401:
+        error = 'Пользователь не авторизован';
+        break;
+      case 404:
+        error = 'Ничего не найдено';
+        break;
+      default:
+        error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
+    }
 
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
+    if (error) {
+      onError(error);
+    }
+  });
 
-    xhr.timeout = 20000;
+  xhr.addEventListener('error', function () {
+    onError('Произошла ошибка соединения');
+  });
 
-    xhr.open(metod, url);
+  xhr.addEventListener('timeout', function () {
+    onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+  });
 
-    return xhr;
-  };
+  xhr.timeout = 20000;
 
-  let onLoad = function (onSuccess, onError) {
-    createXhr('GET', URL.GET, onSuccess, onError).send();
-  };
+  xhr.open(metod, url);
 
-  let upLoad = function (data, onSuccess, onError) {
-    createXhr('POST', URL.POST, onSuccess, onError).send(data);
-  };
+  return xhr;
+};
 
-  window.load = {
-    onLoad: onLoad,
-    upLoad: upLoad
-  };
-})();
+let onLoad = function (onSuccess, onError) {
+  createXhr('GET', urlLoad.GET, onSuccess, onError).send();
+};
+
+let upLoad = function (data, onSuccess, onError) {
+  createXhr('POST', urlLoad.POST, onSuccess, onError).send(data);
+};
+
+window.load = {
+  onLoad: onLoad,
+  upLoad: upLoad
+};
+
