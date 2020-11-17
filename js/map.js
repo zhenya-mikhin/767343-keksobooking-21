@@ -1,5 +1,6 @@
 'use strict';
 
+
 const map = document.querySelector(`.map`);
 const mapPins = map.querySelector(`.map__pins`);
 const mapPinMain = mapPins.querySelector(`.map__pin--main`);
@@ -28,6 +29,7 @@ const getMapPinMainCoords = function () {
     x: mapPinMain.offsetLeft + Math.floor(mapPinMain.offsetWidth / 2),
     y: mapPinMain.offsetTop + mapPinMain.offsetHeight + window.data.ARROW_HEIGHT
   };
+
   return mapPinMainPosition;
 };
 

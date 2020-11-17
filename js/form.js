@@ -55,6 +55,7 @@ const submitHandler = function (evt) {
 
 adForm.addEventListener(`submit`, submitHandler);
 
+
 window.form = {
   deActivationForm,
   isActivationForm,
