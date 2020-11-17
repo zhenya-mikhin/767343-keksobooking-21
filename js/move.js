@@ -1,9 +1,8 @@
 'use strict';
 
-const mapPinMain = document.querySelector('.map__pin--main');
-const addressInput = document.querySelector('#address');
+const mapPinMain = document.querySelector(`.map__pin--main`);
 
-mapPinMain.addEventListener('mousedown', function (evt) {
+mapPinMain.addEventListener(`mousedown`, function (evt) {
 
   const startMouseCoords = {
     x: evt.clientX,
@@ -33,35 +32,31 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       RIGHT: window.data.LIMITS.X.MAX - mapPinMain.offsetWidth
     };
 
-    mapPinMain.style.left = window.util.getValidCoords(startPinOffsets.left - shift.x, border.LEFT, border.RIGHT) + 'px';
-    mapPinMain.style.top = window.util.getValidCoords(startPinOffsets.top - shift.y, border.TOP, border.BOTTOM) + 'px';
+    mapPinMain.style.left = window.util.getValidCoords(startPinOffsets.left - shift.x, border.LEFT, border.RIGHT) + `px`;
+    mapPinMain.style.top = window.util.getValidCoords(startPinOffsets.top - shift.y, border.TOP, border.BOTTOM) + `px`;
 
     const mapPinMainCurrentCoords = {
       x: startPinOffsets.left - shift.x,
       y: startPinOffsets.top - shift.y
     };
 
-    const adAddress = function (coords) {
-      addressInput.value = Math.round(coords.x) + ', ' + Math.round(coords.y);
-    };
-
-    adAddress(mapPinMainCurrentCoords);
+    window.main.adAddress(mapPinMainCurrentCoords);
   };
 
   const onMouseUp = function (upEvt) {
     upEvt.preventDefault();
 
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener(`mousemove`, onMouseMove);
+    document.removeEventListener(`mouseup`, onMouseUp);
 
     if (dragged) {
       const onClickPreventDefault = function (clickEvt) {
         clickEvt.preventDefault();
-        mapPinMain.removeEventListener('click', onClickPreventDefault);
+        mapPinMain.removeEventListener(`click`, onClickPreventDefault);
       };
-      mapPinMain.addEventListener('click', onClickPreventDefault);
+      mapPinMain.addEventListener(`click`, onClickPreventDefault);
     }
   };
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
+  document.addEventListener(`mousemove`, onMouseMove);
+  document.addEventListener(`mouseup`, onMouseUp);
 });

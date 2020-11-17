@@ -1,16 +1,24 @@
 'use strict';
 
+const addressInput = document.querySelector(`#address`);
+
+const adAddress = function (coords) {
+  addressInput.value = Math.round(coords.x) + `, ` + Math.round(coords.y);
+};
+
 const doRenderPinsAndCard = function () {
   window.load.onLoad(window.filter.activateFiltration, onerror);
 };
-const doListenMapPinMain = function (evt) {
-  if (evt.button === 0 || evt.key === 'Enter') {
+const mapPinMainHandle = function (evt) {
+  if (evt.button === 0 || evt.key === `Enter`) {
     window.form.activationForm();
     doRenderPinsAndCard();
   }
-  window.map.mapPinMain.removeEventListener('mousedown', doListenMapPinMain);
-  window.map.mapPinMain.removeEventListener('keydown', doListenMapPinMain);
+  window.map.mapPinMain.removeEventListener(`mousedown`, mapPinMainHandle);
+  window.map.mapPinMain.removeEventListener(`keydown`, mapPinMainHandle);
 };
 
-window.map.mapPinMain.addEventListener('mousedown', doListenMapPinMain);
-window.map.mapPinMain.addEventListener('keydown', doListenMapPinMain);
+adAddress(window.util.initialPinCoords);
+
+window.map.mapPinMain.addEventListener(`mousedown`, mapPinMainHandle);
+window.map.mapPinMain.addEventListener(`keydown`, mapPinMainHandle);

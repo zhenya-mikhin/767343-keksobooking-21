@@ -1,18 +1,29 @@
 'use strict';
 
-const error = document.querySelector('#error').content.querySelector('.error');
-const success = document.querySelector('#success').content.querySelector('.success');
-const main = document.querySelector('main');
+const main = document.querySelector(`main`);
+const error = document.querySelector(`#error`).content.querySelector(`.error`);
+const success = document.querySelector(`#success`).content.querySelector(`.success`);
+const mapPinMain = document.querySelector(`.map__pin--main`);
+
+const initialPinCoords = {
+  x: 570,
+  y: 375
+};
+
+const getPinMainInitialCoords = function () {
+  mapPinMain.style.left = initialPinCoords.x + `px`;
+  mapPinMain.style.top = initialPinCoords.y + `px`;
+};
 
 const getErrorMessage = function (message) {
   const getError = error.cloneNode(true);
-  const getMessage = getError.querySelector('p');
-  const errorButton = getError.querySelector('.error__button');
+  const getMessage = getError.querySelector(`p`);
+  const errorButton = getError.querySelector(`.error__button`);
 
   getMessage.textContent = message;
-  main.insertAdjacentElement('afterbegin', getError);
+  main.insertAdjacentElement(`afterbegin`, getError);
 
-  errorButton.addEventListener('click', function (evt) {
+  errorButton.addEventListener(`click`, function (evt) {
     evt.preventDefault();
     window.map.deactivateMap();
     getError.remove();
@@ -20,7 +31,7 @@ const getErrorMessage = function (message) {
 };
 const getSuccessMessage = function () {
   const getSuccess = success.cloneNode(true);
-  document.body.insertAdjacentElement('afterbegin', getSuccess);
+  document.body.insertAdjacentElement(`afterbegin`, getSuccess);
 };
 
 const getRandomNumber = function (min, max) {
@@ -45,9 +56,11 @@ let getValidCoords = function (coords, min, max) {
 };
 
 window.util = {
-  getRandomNumber: getRandomNumber,
-  getRandomArray: getRandomArray,
-  getErrorMessage: getErrorMessage,
-  getSuccessMessage: getSuccessMessage,
-  getValidCoords: getValidCoords
+  initialPinCoords,
+  getPinMainInitialCoords,
+  getRandomNumber,
+  getRandomArray,
+  getErrorMessage,
+  getSuccessMessage,
+  getValidCoords
 };

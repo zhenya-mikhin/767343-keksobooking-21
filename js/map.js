@@ -1,24 +1,24 @@
 'use strict';
 
-const map = document.querySelector('.map');
-const mapPins = map.querySelector('.map__pins');
-const mapPinMain = mapPins.querySelector('.map__pin--main');
+const map = document.querySelector(`.map`);
+const mapPins = map.querySelector(`.map__pins`);
+const mapPinMain = mapPins.querySelector(`.map__pin--main`);
 
 const renderPins = function (dataPins) {
   const mapPinsFragment = document.createDocumentFragment();
 
-  const mapPinsHeandler = function (evt) {
+  const mapPinsHandler = function (evt) {
     evt.preventDefault();
     window.card.removeMapCard();
-    if ((evt.key === "Enter" || evt.button === 0) && evt.target.dataset.pinId) {
+    if ((evt.key === `Enter` || evt.button === 0) && evt.target.dataset.pinId) {
       window.card.renderCard(dataPins[evt.target.dataset.pinId]);
     }
   };
 
   for (let i = 0; i < dataPins.length; i++) {
     mapPinsFragment.appendChild(window.pin.createPin(dataPins[i], i));
-    mapPins.addEventListener('mousedown', mapPinsHeandler);
-    mapPins.addEventListener('keydown', mapPinsHeandler);
+    mapPins.addEventListener(`mousedown`, mapPinsHandler);
+    mapPins.addEventListener(`keydown`, mapPinsHandler);
   }
   mapPins.appendChild(mapPinsFragment);
 };
@@ -32,19 +32,19 @@ const getMapPinMainCoords = function () {
 };
 
 const deactivateMap = function () {
-  map.classList.add('map--faded');
+  map.classList.add(`map--faded`);
   window.pin.removePin();
   window.card.removeMapCard();
-  mapPinMain.style.top = 375 + 'px';
-  mapPinMain.style.left = 570 + 'px';
+  mapPinMain.style.top = 375 + `px`;
+  mapPinMain.style.left = 570 + `px`;
   window.filter.deactivateFilter();
 };
 
 window.map = {
   mapMain: map,
-  mapPins: mapPins,
-  mapPinMain: mapPinMain,
-  renderPins: renderPins,
-  getMapPinMainCoords: getMapPinMainCoords,
-  deactivateMap: deactivateMap
+  mapPins,
+  mapPinMain,
+  renderPins,
+  getMapPinMainCoords,
+  deactivateMap
 };

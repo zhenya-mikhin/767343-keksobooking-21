@@ -1,12 +1,12 @@
 'use strict';
 
-const mapFilter = document.querySelector('.map__filters');
-const typeSelect = mapFilter.querySelector('#housing-type');
-const priceSelect = mapFilter.querySelector('#housing-price');
-const roomsSelect = mapFilter.querySelector('#housing-rooms');
-const guestsSelect = mapFilter.querySelector('#housing-guests');
-const featuresFieldset = mapFilter.querySelector('#housing-features');
-const mapFilterItems = mapFilter.querySelectorAll('select, input');
+const mapFilter = document.querySelector(`.map__filters`);
+const typeSelect = mapFilter.querySelector(`#housing-type`);
+const priceSelect = mapFilter.querySelector(`#housing-price`);
+const roomsSelect = mapFilter.querySelector(`#housing-rooms`);
+const guestsSelect = mapFilter.querySelector(`#housing-guests`);
+const featuresFieldset = mapFilter.querySelector(`#housing-features`);
+const mapFilterItems = mapFilter.querySelectorAll(`select, input`);
 
 const PINS_LIMIT = 5;
 
@@ -29,11 +29,11 @@ let data = [];
 let filteredData = [];
 
 const filtrationItem = function (it, item, key) {
-  return it.value === 'any' ? true : it.value === item[key].toString();
+  return it.value === `any` ? true : it.value === item[key].toString();
 };
 
 const filtrationByType = function (item) {
-  return filtrationItem(typeSelect, item.offer, 'type');
+  return filtrationItem(typeSelect, item.offer, `type`);
 };
 
 const filtrationByPrice = function (item) {
@@ -42,15 +42,15 @@ const filtrationByPrice = function (item) {
 };
 
 const filtrationByRooms = function (item) {
-  return filtrationItem(roomsSelect, item.offer, 'rooms');
+  return filtrationItem(roomsSelect, item.offer, `rooms`);
 };
 
 const filtrationByGuests = function (item) {
-  return filtrationItem(guestsSelect, item.offer, 'guests');
+  return filtrationItem(guestsSelect, item.offer, `guests`);
 };
 
 const filtrationByFeatures = function (item) {
-  const checkedFeaturesItems = featuresFieldset.querySelectorAll('input:checked');
+  const checkedFeaturesItems = featuresFieldset.querySelectorAll(`input:checked`);
   return Array.from(checkedFeaturesItems).every(function (element) {
     return item.offer.features.includes(element.value);
   });
@@ -62,6 +62,7 @@ const onFilterChange = window.debounce(function () {
   window.pin.removePin();
   window.card.removeMapCard();
   window.map.renderPins(filteredData.slice(0, PINS_LIMIT));
+  window.removeEventListener(`change`, onFilterChange);
 });
 
 const activateFilter = function () {
@@ -69,14 +70,14 @@ const activateFilter = function () {
     it.disabled = false;
   });
   onFilterChange();
-  mapFilter.addEventListener('change', onFilterChange);
+  mapFilter.addEventListener(`change`, onFilterChange);
 };
 
 const resetFilter = function () {
   mapFilterItems.forEach(function (it) {
-    it.value = 'any';
+    it.value = `any`;
   });
-  const featuresItems = featuresFieldset.querySelectorAll('input');
+  const featuresItems = featuresFieldset.querySelectorAll(`input`);
   featuresItems.forEach(function (feature) {
     feature.checked = false;
   });
@@ -87,7 +88,7 @@ const deactivateFilter = function () {
     it.disabled = true;
   });
   resetFilter();
-  mapFilter.removeEventListener('change', onFilterChange);
+  mapFilter.removeEventListener(`change`, onFilterChange);
 };
 
 const activateFiltration = function (adData) {
@@ -97,6 +98,6 @@ const activateFiltration = function (adData) {
 };
 
 window.filter = {
-  activateFiltration: activateFiltration,
-  deactivateFilter: deactivateFilter
+  activateFiltration,
+  deactivateFilter
 };
