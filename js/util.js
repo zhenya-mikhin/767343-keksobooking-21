@@ -32,6 +32,15 @@ const getErrorMessage = function (message) {
 const getSuccessMessage = function () {
   const getSuccess = success.cloneNode(true);
   document.body.insertAdjacentElement(`afterbegin`, getSuccess);
+  const messageDeleteHandle = function (evt) {
+    if (evt.button === 0 || evt.key === `Enter`) {
+      getSuccess.remove();
+    }
+    document.removeEventListener(`mousedown`, messageDeleteHandle);
+    document.removeEventListener(`keydown`, messageDeleteHandle);
+  };
+  document.addEventListener(`mousedown`, messageDeleteHandle);
+  document.addEventListener(`keydown`, messageDeleteHandle);
 };
 
 const getRandomNumber = function (min, max) {
@@ -41,8 +50,7 @@ const getRandomNumber = function (min, max) {
 };
 
 const getRandomArray = function (arr) {
-  const copyArray = arr.slice(0, window.util.getRandomNumber(0, arr.length));
-  return copyArray;
+  return arr.slice(0, window.util.getRandomNumber(0, arr.length));
 };
 
 let getValidCoords = function (coords, min, max) {

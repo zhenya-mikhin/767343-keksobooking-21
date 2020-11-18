@@ -51,6 +51,8 @@ const errorHandler = function (message) {
 const submitHandler = function (evt) {
   window.load.upLoad(new FormData(adForm), successHandler, errorHandler);
   evt.preventDefault();
+  document.removeEventListener(`click`, submitHandler);
+  document.removeEventListener(`keydown`, submitHandler);
 };
 
 adForm.addEventListener(`submit`, submitHandler);

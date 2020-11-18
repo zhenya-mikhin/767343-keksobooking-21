@@ -1,5 +1,24 @@
 'use strict';
 
+const PriceRelation = {
+  bungalow: {
+    number: 0,
+    string: `0`
+  },
+  flat: {
+    number: 1000,
+    string: `1000`
+  },
+  house: {
+    number: 5000,
+    string: `5000`
+  },
+  palace: {
+    number: 10000,
+    string: `10000`
+  }
+};
+
 const adForm = document.querySelector(`.ad-form`);
 const typeInput = adForm.querySelector(`#type`);
 const priceInput = adForm.querySelector(`#price`);
@@ -10,21 +29,21 @@ const capacity = adForm.querySelector(`#capacity`);
 
 typeInput.addEventListener(`change`, function (evt) {
   switch (evt.target.value) {
-    case `bungalo`:
-      priceInput.min = 0;
-      priceInput.placeholder = `0`;
+    case `bungalow`:
+      priceInput.min = PriceRelation.bungalow.number;
+      priceInput.placeholder = PriceRelation.bungalow.string;
       break;
     case `flat`:
-      priceInput.min = 1000;
-      priceInput.placeholder = `1000`;
+      priceInput.min = PriceRelation.flat.number;
+      priceInput.placeholder = PriceRelation.flat.string;
       break;
     case `house`:
-      priceInput.min = 5000;
-      priceInput.placeholder = `5000`;
+      priceInput.min = PriceRelation.house.number;
+      priceInput.placeholder = PriceRelation.house.string;
       break;
     case `palace`:
-      priceInput.min = 10000;
-      priceInput.placeholder = `10000`;
+      priceInput.min = PriceRelation.palace.number;
+      priceInput.placeholder = PriceRelation.palace.string;
       break;
   }
 });

@@ -1,5 +1,7 @@
 'use strict';
 
+const IMAGE_BOX = `45`;
+
 const map = document.querySelector(`.map`);
 const mapCard = document.querySelector(`#card`).content.querySelector(`.map__card`);
 const mapFiltersContainer = document.querySelector(`.map__filters-container`);
@@ -20,8 +22,8 @@ const createPhotos = function (items) {
   items.forEach(function (elem) {
     const image = document.createElement(`img`);
     image.src = elem;
-    image.width = `45`;
-    image.height = `45`;
+    image.width = IMAGE_BOX;
+    image.height = IMAGE_BOX;
     image.alt = elem.alt;
     fragment.appendChild(image);
   });

@@ -1,5 +1,7 @@
 'use strict';
 
+const PINS_LIMIT = 5;
+
 const mapFilter = document.querySelector(`.map__filters`);
 const typeSelect = mapFilter.querySelector(`#housing-type`);
 const priceSelect = mapFilter.querySelector(`#housing-price`);
@@ -7,8 +9,6 @@ const roomsSelect = mapFilter.querySelector(`#housing-rooms`);
 const guestsSelect = mapFilter.querySelector(`#housing-guests`);
 const featuresFieldset = mapFilter.querySelector(`#housing-features`);
 const mapFilterItems = mapFilter.querySelectorAll(`select, input`);
-
-const PINS_LIMIT = 5;
 
 const priceRange = {
   low: {
