@@ -13,7 +13,8 @@ module.exports = {
     './js/validity.js',
     './js/main.js',
     './js/move.js',
-    './js/filter.js'
+    './js/filter.js',
+    './js/image.js'
   ],
   output: {
     filename: 'bundle.js',

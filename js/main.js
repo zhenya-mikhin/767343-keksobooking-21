@@ -23,4 +23,7 @@ adAddress(window.util.initialPinCoords);
 window.map.mapPinMain.addEventListener(`mousedown`, mapPinMainHandle);
 window.map.mapPinMain.addEventListener(`keydown`, mapPinMainHandle);
 
-window.main = adAddress;
+window.main = {
+  adAddress,
+  mapPinMainHandle
+};

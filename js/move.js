@@ -40,7 +40,7 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
       y: startPinOffsets.top - shift.y
     };
 
-    window.main(mapPinMainCurrentCoords);
+    window.main.adAddress(mapPinMainCurrentCoords);
   };
 
   const onMouseUp = function (upEvt) {
