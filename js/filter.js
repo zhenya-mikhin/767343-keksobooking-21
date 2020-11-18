@@ -59,7 +59,7 @@ const filtrationByFeatures = function (item) {
 const onFilterChange = window.debounce(function () {
   filteredData = data.slice(0);
   filteredData = filteredData.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
-  window.pin.removePin(filteredData);
+  window.pin.removePin();
   window.card.removeMapCard();
   window.map.renderPins(filteredData.slice(0, PINS_LIMIT));
   mapFilter.removeEventListener(`change`, onFilterChange);
@@ -93,14 +93,14 @@ const deactivateFilter = function () {
 
 const activateFiltration = function (adData) {
   data = adData.slice(0);
-  window.pin.removePin(adData);
+  activateFilter();
   window.map.mapPinMain.addEventListener(`mousedown`, window.main.mapPinMainHandle);
   window.map.mapPinMain.addEventListener(`keydown`, window.main.mapPinMainHandle);
-  activateFilter();
   return adData.slice(0, PINS_LIMIT);
 };
 
 window.filter = {
   activateFiltration,
-  deactivateFilter
+  deactivateFilter,
+  filteredData
 };

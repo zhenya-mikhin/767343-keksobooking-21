@@ -33,7 +33,7 @@ const activationForm = function () {
 const formResetHandler = function () {
   deActivationForm();
   window.map.mapMain.classList.add(`map--faded`);
-  window.pin.removePin();
+  window.pin.removePin(window.filter.data);
   window.util.getPinMainInitialCoords();
   document.removeEventListener(`mouseup`, formResetHandler);
 };
