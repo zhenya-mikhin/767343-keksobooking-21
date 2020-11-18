@@ -67,4 +67,12 @@ const doListenRoomNumber = function () {
   }
 };
 
+const setDefaultTypePrice = function() {
+  priceInput.min = PriceRelation.flat.number;
+  priceInput.placeholder = PriceRelation.flat.string;
+}
+
 roomNumber.addEventListener(`change`, doListenRoomNumber);
+
+setDefaultTypePrice();
+doListenRoomNumber();

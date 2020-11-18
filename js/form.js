@@ -11,6 +11,7 @@ const deActivationForm = function () {
   adForm.reset();
   adForm.classList.add(`ad-form--disabled`);
   adFormHeader.disabled = true;
+
   for (let i = 0; i < adFormFieldsets.length; i++) {
     adFormFieldsets[i].disabled = true;
   }
@@ -23,6 +24,7 @@ const activationForm = function () {
   window.map.mapMain.classList.remove(`map--faded`);
   adForm.classList.remove(`ad-form--disabled`);
   adFormHeader.disabled = false;
+
   for (let i = 0; i < adFormFieldsets.length; i++) {
     adFormFieldsets[i].disabled = false;
   }
@@ -40,8 +42,11 @@ adFormReset.addEventListener(`click`, formResetHandler);
 
 const successHandler = function () {
   window.util.getSuccessMessage();
-  window.data.map.classList.add(`map--faded`);
+  window.map.deactivateMap();
   deActivationForm();
+
+  document.removeEventListener(`click`, submitHandler);
+  document.removeEventListener(`keydown`, submitHandler);
 };
 
 const errorHandler = function (message) {
@@ -51,8 +56,7 @@ const errorHandler = function (message) {
 const submitHandler = function (evt) {
   window.load.upLoad(new FormData(adForm), successHandler, errorHandler);
   evt.preventDefault();
-  document.removeEventListener(`click`, submitHandler);
-  document.removeEventListener(`keydown`, submitHandler);
+
 };
 
 adForm.addEventListener(`submit`, submitHandler);

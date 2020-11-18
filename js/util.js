@@ -25,7 +25,6 @@ const getErrorMessage = function (message) {
 
   errorButton.addEventListener(`click`, function (evt) {
     evt.preventDefault();
-    window.map.deactivateMap();
     getError.remove();
   });
 };
